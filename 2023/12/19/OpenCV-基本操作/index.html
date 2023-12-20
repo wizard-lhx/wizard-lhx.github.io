@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>OpenCV 基本操作 | WIZARD-LHX-BLOG</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="OpenCV 基本操作0 图像读取、展示读取显示图片 12345img_apple &#x3D; cv2.imread(&quot;apple.jpg&quot;)img_apple &#x3D; cv2.resize(img_apple, (int(1706&#x2F;5), int(1280&#x2F;5)))roi &#x3D; img_apple[0:100, 0:100, 0]cv2.imshow(&quot;res&quot;, ro">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wizard-lhx.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OpenCV 基本操作0 图像读取、展示读取显示图片 12345img_apple &#x3D; cv2.imread(&quot;apple.jpg&quot;)img_apple &#x3D; cv2.resize(img_apple, (int(1706&#x2F;5), int(1280&#x2F;5)))roi &#x3D; img_apple[0:100, 0:100, 0]cv2.imshow(&quot;res&quot;, ro">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenCV 基本操作">
 <meta property="og:url" content="http://wizard-lhx.github.io/2023/12/19/OpenCV-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/index.html">
@@ -21,83 +34,164 @@
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://wizard-lhx.github.io/2023/12/19/OpenCV-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/sobel.png">
-  
-    <link rel="alternate" href="/atom.xml" title="WIZARD-LHX-BLOG" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-  
-  
-<meta name="generator" content="Hexo 7.0.0"></head>
+<link rel="canonical" href="http://wizard-lhx.github.io/2023/12/19/OpenCV-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">WIZARD-LHX-BLOG</a>
-      </h1>
-      
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://wizard-lhx.github.io/2023/12/19/OpenCV-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/","path":"2023/12/19/OpenCV-基本操作/","title":"OpenCV 基本操作"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>OpenCV 基本操作 | WIZARD-LHX-BLOG</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">WIZARD-LHX-BLOG</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
         
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://wizard-lhx.github.io"></form>
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenCV-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">OpenCV 基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E5%9B%BE%E5%83%8F%E8%AF%BB%E5%8F%96%E3%80%81%E5%B1%95%E7%A4%BA"><span class="nav-number">1.1.</span> <span class="nav-text">0 图像读取、展示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%BD%A2%E6%80%81%E5%AD%A6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">1 形态学操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E8%86%A8%E8%83%80%E3%80%81%E8%85%90%E8%9A%80"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1 膨胀、腐蚀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%BC%80%E9%97%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E3%80%81%E7%A4%BC%E5%B8%BD%E9%BB%91%E5%B8%BD%E8%BF%90%E7%AE%97"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2 开闭、梯度、礼帽黑帽运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B"><span class="nav-number">1.3.</span> <span class="nav-text">2 边缘检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Sobel-%E7%AE%97%E5%AD%90"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.1 Sobel 算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Scharr-%E7%AE%97%E5%AD%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2 Scharr 算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Laplacian-%E7%AE%97%E5%AD%90"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3 Laplacian 算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Canny-%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B"><span class="nav-number">1.3.4.</span> <span class="nav-text">2.4 Canny 边缘检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%BB%A4%E6%B3%A2"><span class="nav-number">1.4.</span> <span class="nav-text">3 滤波</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%98%88%E5%80%BC%E5%A4%84%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">4 阈值处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E8%BD%AE%E5%BB%93%E6%A3%80%E6%B5%8B"><span class="nav-number">1.6.</span> <span class="nav-text">5 轮廓检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D"><span class="nav-number">1.7.</span> <span class="nav-text">6 模板匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E5%9B%BE%E5%83%8F%E9%87%91%E5%AD%97%E5%A1%94"><span class="nav-number">1.8.</span> <span class="nav-text">7 图像金字塔</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+        </div>
       </div>
     </div>
-  </div>
-</header>
 
-      <div class="outer">
-        <section id="main"><article id="post-OpenCV-基本操作" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/12/19/OpenCV-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="article-date">
-  <time class="dt-published" datetime="2023-12-19T04:48:29.000Z" itemprop="datePublished">2023-12-19</time>
-</a>
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      OpenCV 基本操作
-    </h1>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
   
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://wizard-lhx.github.io/2023/12/19/OpenCV-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WIZARD-LHX-BLOG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="OpenCV 基本操作 | WIZARD-LHX-BLOG">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenCV 基本操作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
       
-        <h1 id="OpenCV-基本操作"><a href="#OpenCV-基本操作" class="headerlink" title="OpenCV 基本操作"></a>OpenCV 基本操作</h1><h2 id="0-图像读取、展示"><a href="#0-图像读取、展示" class="headerlink" title="0 图像读取、展示"></a>0 图像读取、展示</h2><p>读取显示图片</p>
+
+      <time title="Created: 2023-12-19 12:48:29 / Modified: 13:27:51" itemprop="dateCreated datePublished" datetime="2023-12-19T12:48:29+08:00">2023-12-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="OpenCV-基本操作"><a href="#OpenCV-基本操作" class="headerlink" title="OpenCV 基本操作"></a>OpenCV 基本操作</h1><h2 id="0-图像读取、展示"><a href="#0-图像读取、展示" class="headerlink" title="0 图像读取、展示"></a>0 图像读取、展示</h2><p>读取显示图片</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">img_apple = cv2.imread(<span class="string">&quot;apple.jpg&quot;</span>)</span><br><span class="line">img_apple = cv2.resize(img_apple, (<span class="built_in">int</span>(<span class="number">1706</span>/<span class="number">5</span>), <span class="built_in">int</span>(<span class="number">1280</span>/<span class="number">5</span>)))</span><br><span class="line">roi = img_apple[<span class="number">0</span>:<span class="number">100</span>, <span class="number">0</span>:<span class="number">100</span>, <span class="number">0</span>]</span><br><span class="line">cv2.imshow(<span class="string">&quot;res&quot;</span>, roi)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 
 <p>读取显示视频</p>
@@ -148,113 +242,87 @@
 <li>向下采样（图像变小）：用高斯滤波去噪，然后去掉偶数得行和列。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">img_hourse_down = cv2.pyrDown(img_hourse)</span><br><span class="line">img_hourse_up = cv2.pyrUp(img_hourse)</span><br></pre></td></tr></table></figure></li>
 </ol>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://wizard-lhx.github.io/2023/12/19/OpenCV-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" data-id="clqbvd5rm0000p4sld1co27m9" data-title="OpenCV 基本操作" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/12/18/hello-world/" rel="prev" title="Hello World">
+                  <i class="fa fa-angle-left"></i> Hello World
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
   </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2023/12/18/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li></ul>
-    </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2023/12/19/OpenCV-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">OpenCV 基本操作</a>
-          </li>
-        
-          <li>
-            <a href="/2023/12/18/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2023 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
+  </footer>
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
 </body>
 </html>
