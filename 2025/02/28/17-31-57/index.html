@@ -18,15 +18,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"wizard-lhx.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1 状态值和动作值为了衡量一个策略的好坏就需要状态值，而策略是当前状态下采取动作的概率，所以需要使用动作值去评价应该使用的策略。 1.1 状态值（state value）状态值就是当前状态到目标所经历的 trajectory 的期望 return，记为 $v_\pi(s)&#x3D;E[G_t|S_t&#x3D;s]$（$G_t$是使用当前策略的 return 值的随机变量），它与当前状态以及所选">
+    <meta name="description" content="强化学习教程（二）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="强化学习————值（二）">
 <meta property="og:url" content="http://wizard-lhx.github.io/2025/02/28/17-31-57/index.html">
 <meta property="og:site_name" content="WIZARD-LHX-BLOG">
-<meta property="og:description" content="1 状态值和动作值为了衡量一个策略的好坏就需要状态值，而策略是当前状态下采取动作的概率，所以需要使用动作值去评价应该使用的策略。 1.1 状态值（state value）状态值就是当前状态到目标所经历的 trajectory 的期望 return，记为 $v_\pi(s)&#x3D;E[G_t|S_t&#x3D;s]$（$G_t$是使用当前策略的 return 值的随机变量），它与当前状态以及所选">
+<meta property="og:description" content="强化学习教程（二）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-28T09:31:57.193Z">
-<meta property="article:modified_time" content="2025-02-28T09:34:23.112Z">
+<meta property="article:modified_time" content="2025-02-28T09:41:44.309Z">
 <meta property="article:author" content="Wizard LHX">
 <meta property="article:tag" content="强化学习">
 <meta name="twitter:card" content="summary">
@@ -111,7 +111,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%8A%B6%E6%80%81%E5%80%BC%E5%92%8C%E5%8A%A8%E4%BD%9C%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">1 状态值和动作值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E7%8A%B6%E6%80%81%E5%80%BC%EF%BC%88state-value%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 状态值（state value）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%8A%A8%E4%BD%9C%E5%80%BC%EF%BC%88action-value%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 动作值（action value）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%B4%9D%E5%B0%94%E6%9B%BC%E5%85%AC%E5%BC%8F%EF%BC%88Bellman-Equation%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2 贝尔曼公式（Bellman Equation）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E8%B4%9D%E5%B0%94%E6%9B%BC%E5%85%AC%E5%BC%8F%E6%B1%82%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">3 贝尔曼公式求解</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%80%BC%E5%92%8C%E5%8A%A8%E4%BD%9C%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">1 状态值和动作值</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,7 +181,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="强化学习————值（二） | WIZARD-LHX-BLOG">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="强化学习教程（二）">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -197,23 +197,115 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2025-02-28 17:31:57 / 修改时间：17:34:23" itemprop="dateCreated datePublished" datetime="2025-02-28T17:31:57+08:00">2025-02-28</time>
+      <time title="创建时间：2025-02-28 17:31:57 / 修改时间：17:41:44" itemprop="dateCreated datePublished" datetime="2025-02-28T17:31:57+08:00">2025-02-28</time>
     </span>
 
   
 </div>
 
+            <div class="post-description">强化学习教程（二）</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="1-状态值和动作值"><a href="#1-状态值和动作值" class="headerlink" title="1 状态值和动作值"></a>1 状态值和动作值</h1><p>为了衡量一个策略的好坏就需要状态值，而策略是当前状态下采取动作的概率，所以需要使用动作值去评价应该使用的策略。</p>
-<h2 id="1-1-状态值（state-value）"><a href="#1-1-状态值（state-value）" class="headerlink" title="1.1 状态值（state value）"></a>1.1 状态值（state value）</h2><p>状态值就是当前状态到目标所经历的 trajectory 的期望 return，记为 $v_\pi(s)&#x3D;E[G_t|S_t&#x3D;s]$（$G_t$是使用当前策略的 return 值的随机变量），它与当前状态以及所选取的策略相关。</p>
-<h2 id="1-2-动作值（action-value）"><a href="#1-2-动作值（action-value）" class="headerlink" title="1.2 动作值（action value）"></a>1.2 动作值（action value）</h2><p>动作值就是当前状态，采取某个动作后到达最终目标所经历的 trajectory 的期望 return，记为 $q_\pi(s,a)&#x3D;E[G_t|S_t&#x3D;s,A_t&#x3D;a]$，它除了与当前状态相关还与采取的动作有关。</p>
-<h1 id="2-贝尔曼公式（Bellman-Equation）"><a href="#2-贝尔曼公式（Bellman-Equation）" class="headerlink" title="2 贝尔曼公式（Bellman Equation）"></a>2 贝尔曼公式（Bellman Equation）</h1><p>为了计算出当前状态的 $v$ 和 $q$，根据定义<br>$$<br>\begin{align}<br>    v_\pi(s)&amp;&#x3D;E[G_t|S_t&#x3D;s] \<br>    &amp;&#x3D;E[R_{t+1}|S_t&#x3D;s]+\gamma E[G_{t+1}|S_t&#x3D;s] &amp;\text 习惯上把 R_{t+1}当成 t 时刻下的奖励\<br>    &amp;&#x3D;\displaystyle \sum_a \pi(a|s) \displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle \sum_{s’} p(s’|s) E[G_{t+1}|S_t&#x3D;s,S_{t+1}&#x3D;s’]\<br>    &amp;&#x3D;\displaystyle \sum_a \pi(a|s) \displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle \sum_{s’} p(s’|s) E[G_{t+1}|S_{t+1}&#x3D;s’] &amp;\text {memoryless property}\<br>    &amp;&#x3D;\displaystyle \sum_a \pi(a|s) \displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle \sum_{s’} E[G_{t+1}|S_{t+1}&#x3D;s’] \displaystyle \sum_a \pi(a|s) p(s’|s,a) \<br>    &amp;&#x3D;\displaystyle \sum_a \pi(a|s) \displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle \sum_{s’} v_\pi(s’) \displaystyle \sum_a \pi(a|s) p(s’|s,a)\<br>    &amp;&#x3D;\displaystyle \sum_a \pi(a|s) \displaystyle \sum_r p(r|s,a) r+\gamma  \displaystyle \sum_a \pi(a|s) \displaystyle \sum_{s’} p(s’|s,a)v_\pi(s’), \forall s \in S &amp;\text{贝尔曼公式可以对所有的状态进行列写，有很多条}<br>\end{align}<br>$$<br>这个是针对单个值来列的贝尔曼公式，从贝尔曼公式发现当前$v_\pi(s)$可以由下个状态$v_\pi(s’)$求出，称为 bootstrap。<br>action value 的推导与 state value 差不多。<br>$$<br>\begin{align}<br>    q_\pi(s,a)&amp;&#x3D;E[G_t|S_t&#x3D;s,A_t&#x3D;a] \<br>    &amp;&#x3D;E[R_{t+1}|S_t&#x3D;s,A_t&#x3D;a]+\gamma E[G_{t+1}|S_t&#x3D;s] \<br>    &amp;&#x3D;\displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle \sum_{s’} p(s’|s) E[G_{t+1}|S_t&#x3D;s,S_{t+1}&#x3D;s’,A_t&#x3D;a]\<br>    &amp;&#x3D;\displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle \sum_{s’} p(s’|s) E[G_{t+1}|S_{t+1}&#x3D;s’] &amp;\text {memoryless property}\<br>    &amp;&#x3D;\displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle \sum_{s’} E[G_{t+1}|S_{t+1}&#x3D;s’] p(s’|s,a) \<br>    &amp;&#x3D;\displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle \sum_{s’} v_\pi(s’) p(s’|s,a), \forall s \in S &amp;\text{贝尔曼公式可以对所有的状态和动作的组合进行列写，有很多条}<br>\end{align}<br>$$<br>比较两个式子也可以得出$v_\pi(s)$关于$q_\pi(s,a)$的表达式$v_\pi(s)&#x3D;\displaystyle \sum_a \pi(a|s) q_\pi(s,a)$</p>
-<h1 id="3-贝尔曼公式求解"><a href="#3-贝尔曼公式求解" class="headerlink" title="3 贝尔曼公式求解"></a>3 贝尔曼公式求解</h1><p>单个值的贝尔曼公式无法写出解析解，往往需要多个公式联立，进而可以用矩阵乘法简化。<br>由公式 $v_\pi(s)&#x3D;E[R_{t+1}|S_t&#x3D;s]+\gamma E[G_{t+1}|S_t&#x3D;s]$，当$v_\pi,r_\pi$是一个多个状态的$v_\pi(s)$和$E[R_{t+1}|S_t&#x3D;s]$的向量时。当状态空间维度为 n 时。<br>$$<br>\begin{bmatrix}<br>    v_\pi(s_1)\<br>    v_\pi(s_2)\<br>    \vdots\<br>    v_\pi(s_n)<br>\end{bmatrix}&#x3D;<br>\begin{bmatrix}<br>    r_\pi(s_1)\<br>    r_\pi(s_2)\<br>    \vdots\<br>    r_\pi(s_n)\<br>\end{bmatrix}+\gamma<br>\begin{bmatrix}<br>    p(s_1|s_1)&amp;p(s_1|s_2)&amp;\cdots&amp;p(s_1|s_n)\<br>    p(s_2|s_1)&amp;p(s_2|s_2)&amp;\cdots&amp;p(s_2|s_n)\<br>    \vdots&amp;\vdots&amp;\ddots&amp;\vdots\<br>    p(s_n|s_1)&amp;p(s_n|s_2)&amp;\cdots&amp;p(s_n|s_n)<br>\end{bmatrix}<br>\begin{bmatrix}<br>    v_\pi(s_1)\<br>    v_\pi(s_2)\<br>    \vdots\<br>    v_\pi(s_n)<br>\end{bmatrix}<br>$$<br>其中这个方阵称为状态转移矩阵 P，整个公式可以写成$v_\pi&#x3D;r_\pi+\gamma P v_\pi$<br>可以写出解析解为$v_\pi&#x3D;(I-\gamma P)^{-1} r_\pi$<br>为了减少运算量，在实际中不求逆，而是求迭代解$v_{k+1}&#x3D;r_\pi+\gamma P v_k（k&#x3D;0,1,2,\cdots）$。可以证明当$k\to\infty$，$v_{k+1} \to v_\pi$</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="状态值和动作值">1 状态值和动作值</h1>
+<p>为了衡量一个策略的好坏就需要状态值，而策略是当前状态下采取动作的概率，所以需要使用动作值去评价应该使用的策略。
+## 1.1 状态值（state value） 状态值就是当前状态到目标所经历的 trajectory
+的期望 return，记为 <span
+class="math inline">\(v_\pi(s)=E[G_t|S_t=s]\)</span>（<span
+class="math inline">\(G_t\)</span>是使用当前策略的 return
+值的随机变量），它与当前状态以及所选取的策略相关。 ## 1.2 动作值（action
+value） 动作值就是当前状态，采取某个动作后到达最终目标所经历的
+trajectory 的期望 return，记为 <span
+class="math inline">\(q_\pi(s,a)=E[G_t|S_t=s,A_t=a]\)</span>，它除了与当前状态相关还与采取的动作有关。
+# 2 贝尔曼公式（Bellman Equation） 为了计算出当前状态的 <span
+class="math inline">\(v\)</span> 和 <span
+class="math inline">\(q\)</span>，根据定义 <span class="math display">\[
+\begin{align}
+    v_\pi(s)&amp;=E[G_t|S_t=s] \\
+    &amp;=E[R_{t+1}|S_t=s]+\gamma E[G_{t+1}|S_t=s] &amp;\text 习惯上把
+R_{t+1}当成 t 时刻下的奖励\\
+    &amp;=\displaystyle \sum_a \pi(a|s) \displaystyle \sum_r p(r|s,a)
+r+\gamma \displaystyle \sum_{s&#39;} p(s&#39;|s)
+E[G_{t+1}|S_t=s,S_{t+1}=s&#39;]\\
+    &amp;=\displaystyle \sum_a \pi(a|s) \displaystyle \sum_r p(r|s,a)
+r+\gamma \displaystyle \sum_{s&#39;} p(s&#39;|s)
+E[G_{t+1}|S_{t+1}=s&#39;] &amp;\text {memoryless property}\\
+    &amp;=\displaystyle \sum_a \pi(a|s) \displaystyle \sum_r p(r|s,a)
+r+\gamma \displaystyle \sum_{s&#39;} E[G_{t+1}|S_{t+1}=s&#39;]
+\displaystyle \sum_a \pi(a|s) p(s&#39;|s,a) \\
+    &amp;=\displaystyle \sum_a \pi(a|s) \displaystyle \sum_r p(r|s,a)
+r+\gamma \displaystyle \sum_{s&#39;} v_\pi(s&#39;) \displaystyle \sum_a
+\pi(a|s) p(s&#39;|s,a)\\
+    &amp;=\displaystyle \sum_a \pi(a|s) \displaystyle \sum_r p(r|s,a)
+r+\gamma  \displaystyle \sum_a \pi(a|s) \displaystyle \sum_{s&#39;}
+p(s&#39;|s,a)v_\pi(s&#39;), \forall s \in S
+&amp;\text{贝尔曼公式可以对所有的状态进行列写，有很多条}
+\end{align}
+\]</span> 这个是针对单个值来列的贝尔曼公式，从贝尔曼公式发现当前<span
+class="math inline">\(v_\pi(s)\)</span>可以由下个状态<span
+class="math inline">\(v_\pi(s&#39;)\)</span>求出，称为 bootstrap。
+action value 的推导与 state value 差不多。 <span class="math display">\[
+\begin{align}
+    q_\pi(s,a)&amp;=E[G_t|S_t=s,A_t=a] \\
+    &amp;=E[R_{t+1}|S_t=s,A_t=a]+\gamma E[G_{t+1}|S_t=s] \\
+    &amp;=\displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle
+\sum_{s&#39;} p(s&#39;|s) E[G_{t+1}|S_t=s,S_{t+1}=s&#39;,A_t=a]\\
+    &amp;=\displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle
+\sum_{s&#39;} p(s&#39;|s) E[G_{t+1}|S_{t+1}=s&#39;] &amp;\text
+{memoryless property}\\
+    &amp;=\displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle
+\sum_{s&#39;} E[G_{t+1}|S_{t+1}=s&#39;] p(s&#39;|s,a) \\
+    &amp;=\displaystyle \sum_r p(r|s,a) r+\gamma \displaystyle
+\sum_{s&#39;} v_\pi(s&#39;) p(s&#39;|s,a), \forall s \in S
+&amp;\text{贝尔曼公式可以对所有的状态和动作的组合进行列写，有很多条}
+\end{align}
+\]</span> 比较两个式子也可以得出<span
+class="math inline">\(v_\pi(s)\)</span>关于<span
+class="math inline">\(q_\pi(s,a)\)</span>的表达式<span
+class="math inline">\(v_\pi(s)=\displaystyle \sum_a \pi(a|s)
+q_\pi(s,a)\)</span> # 3 贝尔曼公式求解
+单个值的贝尔曼公式无法写出解析解，往往需要多个公式联立，进而可以用矩阵乘法简化。
+由公式 <span class="math inline">\(v_\pi(s)=E[R_{t+1}|S_t=s]+\gamma
+E[G_{t+1}|S_t=s]\)</span>，当<span
+class="math inline">\(v_\pi,r_\pi\)</span>是一个多个状态的<span
+class="math inline">\(v_\pi(s)\)</span>和<span
+class="math inline">\(E[R_{t+1}|S_t=s]\)</span>的向量时。当状态空间维度为
+n 时。 <span class="math display">\[
+\begin{bmatrix}
+    v_\pi(s_1)\\
+    v_\pi(s_2)\\
+    \vdots\\
+    v_\pi(s_n)
+\end{bmatrix}=
+\begin{bmatrix}
+    r_\pi(s_1)\\
+    r_\pi(s_2)\\
+    \vdots\\
+    r_\pi(s_n)\\
+\end{bmatrix}+\gamma
+\begin{bmatrix}
+    p(s_1|s_1)&amp;p(s_1|s_2)&amp;\cdots&amp;p(s_1|s_n)\\
+    p(s_2|s_1)&amp;p(s_2|s_2)&amp;\cdots&amp;p(s_2|s_n)\\
+    \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+    p(s_n|s_1)&amp;p(s_n|s_2)&amp;\cdots&amp;p(s_n|s_n)
+\end{bmatrix}
+\begin{bmatrix}
+    v_\pi(s_1)\\
+    v_\pi(s_2)\\
+    \vdots\\
+    v_\pi(s_n)
+\end{bmatrix}
+\]</span> 其中这个方阵称为状态转移矩阵 P，整个公式可以写成<span
+class="math inline">\(v_\pi=r_\pi+\gamma P v_\pi\)</span>
+可以写出解析解为<span class="math inline">\(v_\pi=(I-\gamma P)^{-1}
+r_\pi\)</span> 为了减少运算量，在实际中不求逆，而是求迭代解<span
+class="math inline">\(v_{k+1}=r_\pi+\gamma P
+v_k（k=0,1,2,\cdots）\)</span>。可以证明当<span
+class="math inline">\(k\to\infty\)</span>，<span
+class="math inline">\(v_{k+1} \to v_\pi\)</span></p>
 
     </div>
 
