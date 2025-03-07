@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wizard-lhx.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="深度学习教程（二）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习——卷积神经网络（二）">
+<meta property="og:url" content="http://wizard-lhx.github.io/2025/03/07/10-49-38/index.html">
+<meta property="og:site_name" content="WIZARD-LHX-BLOG">
+<meta property="og:description" content="深度学习教程（二）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://wizard-lhx.github.io/2025/03/07/10-49-38/%E5%A4%9A%E5%B1%82%E5%8D%B7%E7%A7%AF.png">
+<meta property="og:image" content="http://wizard-lhx.github.io/2025/03/07/10-49-38/LeNet.png">
+<meta property="og:image" content="http://wizard-lhx.github.io/2025/03/07/10-49-38/alexnet.svg">
+<meta property="og:image" content="http://wizard-lhx.github.io/2025/03/07/10-49-38/vgg.svg">
+<meta property="og:image" content="http://wizard-lhx.github.io/2025/03/07/10-49-38/nin.svg">
+<meta property="og:image" content="http://wizard-lhx.github.io/2025/03/07/10-49-38/inception.svg">
+<meta property="og:image" content="http://wizard-lhx.github.io/2025/03/07/10-49-38/batchNorm.png">
+<meta property="og:image" content="http://wizard-lhx.github.io/2025/03/07/10-49-38/resnet-block.svg">
+<meta property="article:published_time" content="2025-03-07T02:49:38.000Z">
+<meta property="article:modified_time" content="2025-03-07T03:02:00.873Z">
+<meta property="article:author" content="Wizard LHX">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wizard-lhx.github.io/2025/03/07/10-49-38/%E5%A4%9A%E5%B1%82%E5%8D%B7%E7%A7%AF.png">
+
+
+<link rel="canonical" href="http://wizard-lhx.github.io/2025/03/07/10-49-38/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://wizard-lhx.github.io/2025/03/07/10-49-38/","path":"2025/03/07/10-49-38/","title":"深度学习——卷积神经网络（二）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深度学习——卷积神经网络（二） | WIZARD-LHX-BLOG</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">WIZARD-LHX-BLOG</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-text"> 卷积神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="nav-text"> 1 卷积核</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-padding-stride"><span class="nav-text"> 2 padding stride</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-pooling"><span class="nav-text"> 3 pooling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%8D%B7%E7%A7%AF%E7%BB%B4%E5%BA%A6"><span class="nav-text"> 4 卷积维度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-lenet"><span class="nav-text"> 5 LeNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%8E%B0%E4%BB%A3%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-text"> 6 现代神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#61-alexnet"><span class="nav-text"> 6.1 AlexNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-vgg"><span class="nav-text"> 6.2 VGG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-nin"><span class="nav-text"> 6.3 NIN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-googlenet"><span class="nav-text"> 6.4 GoogLenet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#65-%E6%89%B9%E9%87%8F%E8%A7%84%E8%8C%83%E5%8C%96"><span class="nav-text"> 6.5 批量规范化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#66-resnet"><span class="nav-text"> 6.6 ResNet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89"><span class="nav-text"> 7 计算机视觉</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#71-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="nav-text"> 7.1 数据增强</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#72-%E5%BE%AE%E8%B0%83%E6%A8%A1%E5%9E%8B"><span class="nav-text"> 7.2 微调模型</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wizard LHX"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Wizard LHX</p>
+  <div class="site-description" itemprop="description">wizard-lhx 的博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wizard-lhx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wizard-lhx" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://wizardhxliang@gmail.com/" title="E-Mail → https:&#x2F;&#x2F;wizardhxliang@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wizard-lhx.github.io/2025/03/07/10-49-38/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Wizard LHX">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WIZARD-LHX-BLOG">
+      <meta itemprop="description" content="wizard-lhx 的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="深度学习——卷积神经网络（二） | WIZARD-LHX-BLOG">
+      <meta itemprop="description" content="深度学习教程（二）">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深度学习——卷积神经网络（二）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-03-07 10:49:38 / 修改时间：11:02:00" itemprop="dateCreated datePublished" datetime="2025-03-07T10:49:38+08:00">2025-03-07</time>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">深度学习教程（二）</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="卷积神经网络"><a class="markdownIt-Anchor" href="#卷积神经网络"></a> 卷积神经网络</h1>
+<p>为了解决图像处理等具有大量输入的数据，使用全链接参数会变得十分庞大，但是在图像中有很多特征是具有平移不变性，以及局部性的，所以将这些特征提取出来就用到了卷积。</p>
+<h2 id="1-卷积核"><a class="markdownIt-Anchor" href="#1-卷积核"></a> 1 卷积核</h2>
+<p>卷积核的大小是卷积神经网络的一个超参数，一般选 3x3 或 5x5。图像 nxn，经过 kxk 的卷积后变成(n-k+1)x(n-k+1)。</p>
+<h2 id="2-padding-stride"><a class="markdownIt-Anchor" href="#2-padding-stride"></a> 2 padding stride</h2>
+<p>为了应对卷积使输入图像的一些边沿内容不能被扫到，增加边长叫 padding。经 pxp 的 padding 和卷积后，原图变为 (n+p-k+1)x(n+p-k+1)。同时为了使计算更加高效也用了跳步去扫描图像叫 stride。经以上步骤，原图变为 (n+p-k+s)/s x (n+p-k+1)/s。</p>
+<h2 id="3-pooling"><a class="markdownIt-Anchor" href="#3-pooling"></a> 3 pooling</h2>
+<p>为了应对卷积时对图像特征位置敏感的问题，将 pooling 核范围内的值进行取最大或求平均。通常步长与核大小相同。</p>
+<h2 id="4-卷积维度"><a class="markdownIt-Anchor" href="#4-卷积维度"></a> 4 卷积维度</h2>
+<p>为了获得更多的特征信息，对图像进行卷积时常常将原图像的通道数进行扩张。所以卷积核的数量是 cout x cin。卷积时将不同输入层卷积后的数据进行叠加得到每个通道输出。而 pooling 不会改变输入输出的维度。<br />
+<img src="%E5%A4%9A%E5%B1%82%E5%8D%B7%E7%A7%AF.png" alt="多层卷积" /></p>
+<h2 id="5-lenet"><a class="markdownIt-Anchor" href="#5-lenet"></a> 5 LeNet</h2>
+<p>为了将 28 x 28 的手写数字图像识别出来，使用的卷积神经网络得到图像更多特征后，将其拉成一列，用全连接层获得最终输出。这里对比直接使用全连接层进行识别就少了很多的参数，经卷积后特征只有16x5x5，使用全连接有 28x28。<br />
+<img src="LeNet.png" alt="LeNet" /></p>
+<h2 id="6-现代神经网络"><a class="markdownIt-Anchor" href="#6-现代神经网络"></a> 6 现代神经网络</h2>
+<h3 id="61-alexnet"><a class="markdownIt-Anchor" href="#61-alexnet"></a> 6.1 AlexNet</h3>
+<p>随着计算能力提升，为了使网络效果更好往往设计更深更大的网络。该网络与LeNet对比使用了更多的卷积层。<img src="alexnet.svg" alt="AlexNet" /></p>
+<h3 id="62-vgg"><a class="markdownIt-Anchor" href="#62-vgg"></a> 6.2 VGG</h3>
+<p>为了克服 AlexNet 不够标准的结构，设计 VGG 模块，每个模块有多个卷积层，每个卷积层使用 3x3 卷积核使通道增加，其中第一个卷积层维度增加，后面几个卷积层层数与输出保持一致，最后经过一个池化层宽高减半。<img src="vgg.svg" alt="VGG" /></p>
+<h3 id="63-nin"><a class="markdownIt-Anchor" href="#63-nin"></a> 6.3 NIN</h3>
+<p>VGG 网络中存在最后的全连接层参数过多，占用内存大的问题，在每个 NIN 模块中，使用两个 1x1 的卷积层进行进行卷积，最后再使用全局池化层获得网络最终输出。<img src="nin.svg" alt="NIN" /></p>
+<h3 id="64-googlenet"><a class="markdownIt-Anchor" href="#64-googlenet"></a> 6.4 GoogLenet</h3>
+<p>为了解决不同大小的卷积核，带来不同的效果，设计 inception block 对相同输入进行并行计算，最后再对不同卷积核的输出层进行连接。<img src="inception.svg" alt="inception" /><br />
+再对多个 inception block 连接得到 GoogLenet。</p>
+<h3 id="65-批量规范化"><a class="markdownIt-Anchor" href="#65-批量规范化"></a> 6.5 批量规范化</h3>
+<p>为了应对深度神经网络，较底层的参数，梯度较小，更新较慢，而上层的参数变化较大，导致整个网络不稳定，模型收敛慢。通常在激活层之前加入批量规范化层<img src="batchNorm.png" alt="batchNorm" /><br />
+其中 γ 和 β 是可以被训练的参数，针对不同层进行不同的缩放。特别注意的是，在训练和测试时使用不同的均值与方差，训练时使用的是小批量内的，而测试时使用的时全部数据的。还有均值和方差在卷积层与全连接层有所不同，在卷积层针对的时层进行计算，而在全连接是针对每个特征进行计算。</p>
+<h3 id="66-resnet"><a class="markdownIt-Anchor" href="#66-resnet"></a> 6.6 ResNet</h3>
+<p>为了解决深度神经网络在优化过程中无法到达最优解的情况，在每一个新增的层增加一个输入直通输出或者经过 1x1 卷积（解决输入输出层数不同问题）通到输出的通道，使新的网络从原来的 f(x) 变成 f(x) + x。<img src="resnet-block.svg" alt="resnet-block" />输入可以直接通到下一层的输入，保证整个网络不会歪掉。同时 ResNet 也解决了梯度消失的问题，当网络很深的时候，较底部的层梯度往往比较小，在加入额外的直连通道后，反向传播时相当于梯度做加法，梯度增加。所以 ResNet 通常可以有很多很多的层。</p>
+<h2 id="7-计算机视觉"><a class="markdownIt-Anchor" href="#7-计算机视觉"></a> 7 计算机视觉</h2>
+<p>卷积神经网络经常被用于图像处理领域。同时该领域也有很多其他的方法。</p>
+<h3 id="71-数据增强"><a class="markdownIt-Anchor" href="#71-数据增强"></a> 7.1 数据增强</h3>
+<p>在模型进行训练时可以观察测试数据的特征，如过有大量色温，物体部分画面，不同宽高比。这时进行训练时，数据也可以进行一定的变换，使得模型的泛化能力更强。</p>
+<h3 id="72-微调模型"><a class="markdownIt-Anchor" href="#72-微调模型"></a> 7.2 微调模型</h3>
+<p>为了使模型具有一定的泛化学习能力，往往将相同的模型在复杂数据集上训练得到的参数应用于相对更简单的数据集上。而在物体识别问题上，往往将网络在 ImageNet 训练好的卷积层参数（也就是体征识别的地方）拿到所需要识别的数据集上，并较快地改变全连接层参数，而对特征识别地参数只给一个小的学习率进行微调。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/07/10-49-09/" rel="prev" title="深度学习——基础（一）">
+                  <i class="fa fa-angle-left"></i> 深度学习——基础（一）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/03/07/10-49-52/" rel="next" title="深度学习——循环神经网络（三）">
+                  深度学习——循环神经网络（三） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-pen-nib"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Wizard LHX</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+
+
+
+</body>
+</html>
