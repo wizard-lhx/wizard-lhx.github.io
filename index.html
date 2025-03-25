@@ -234,7 +234,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -265,104 +265,6 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://wizard-lhx.github.io/2025/03/25/21-56-24/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Wizard LHX">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WIZARD-LHX-BLOG">
-      <meta itemprop="description" content="wizard-lhx 的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | WIZARD-LHX-BLOG">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/03/25/21-56-24/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2025-03-25 21:56:24 / 修改时间：21:52:18" itemprop="dateCreated datePublished" datetime="2025-03-25T21:56:24+08:00">2025-03-25</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="传统路径搜寻算法"><a class="markdownIt-Anchor" href="#传统路径搜寻算法"></a> 传统路径搜寻算法</h1>
-<p>针对可以表示成图（Graph），即包括节点（node）和边（edge）的地图，可以使用搜索的方法找到从起始点到终点最短的一条路径。</p>
-<h2 id="1-广度优先搜索算法breadth-first-search"><a class="markdownIt-Anchor" href="#1-广度优先搜索算法breadth-first-search"></a> 1 广度优先搜索算法（Breadth First Search）</h2>
-<p>将起始点作为边界，向相邻节点搜索，将新探索点作为边界，在下一轮作为中心点，继续对相邻节点进行探索，直到终点作为中心点时结束。探索的顺序是先进入边界队列的，在下一轮中优先被探索。<br />
-<img src="bfs.png" alt="bfs" /></p>
-<p>在这个算法中：</p>
-<ul>
-<li><code>frontier</code>是一个队列，用于存储待探索的节点</li>
-<li><code>came_from</code>是一个映射，用于记录每个节点的来源，便于回溯路径</li>
-<li>算法按照&quot;先入先出&quot;的顺序探索节点，保证找到的路径是最短的（按边数计算，相当于固定每个边的长度是 1）</li>
-</ul>
-<h2 id="2-dijkstra-算法"><a class="markdownIt-Anchor" href="#2-dijkstra-算法"></a> 2 Dijkstra 算法</h2>
-<p>由于 BFS 算法是按照&quot;先入先出&quot;顺序探索节点，无法在边长不一时找到最短路径。就采用计算出发点到探索点的距离作为探索优先级，到出发点距离越短的点，优先级越高，最先被探索。<br />
-<img src="dijkstra.png" alt="dijkstra" /><br />
-算法中：</p>
-<ul>
-<li><code>cost_so_far</code>计算原点到当前节点距离，并将其作为被探索点的优先级，并按照此优先级作为探索顺序。</li>
-<li>同时为了保证与原点距离最短的点先被探索，当<code>cost_so_far</code>改变时，该点即使探索过了，依然会再次进入边界队列。</li>
-</ul>
-<h2 id="3-最佳优先探索算法greedy-best-first-search"><a class="markdownIt-Anchor" href="#3-最佳优先探索算法greedy-best-first-search"></a> 3 最佳优先探索算法（Greedy Best First Search）</h2>
-<p>为了减少探索次数，将探索顺序换成距离目标最近的点，优先级最高，最先被探索，该方法效率高，但不一定是最优路径。<br />
-<img src="greedy.png" alt="greedy" /></p>
-<ul>
-<li><code>heuristic</code>就是当前点与目标的距离（可以是欧式距离或曼哈顿距离）<br />
-因为利用目标信息进行搜索，所以称为 heuristic（启发式）。</li>
-</ul>
-<h2 id="4-a-算法"><a class="markdownIt-Anchor" href="#4-a-算法"></a> 4 A* 算法</h2>
-<p>结合 GBFS 和 Dijkstra 算法，即保证最优性（路径最短）又保证探索效率，将探索顺序换成到起始点距离加上到终点距离作为优先级<br />
-<img src="a_star.png" alt="a_star" />!</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -1004,6 +906,78 @@ mjx-container[display="true"] + br {
     
     <div class="post-body" itemprop="articleBody">
           <p>强化学习教程（七）</p>
+          <!--noindex-->
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://wizard-lhx.github.io/2025/03/04/17-30-06/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Wizard LHX">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WIZARD-LHX-BLOG">
+      <meta itemprop="description" content="wizard-lhx 的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | WIZARD-LHX-BLOG">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/03/04/17-30-06/" class="post-title-link" itemprop="url">强化学习——随机近似理论（六）</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-03-04 17:30:06 / 修改时间：17:36:05" itemprop="dateCreated datePublished" datetime="2025-03-04T17:30:06+08:00">2025-03-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>强化学习教程（六）</p>
           <!--noindex-->
           <!--/noindex-->
         
