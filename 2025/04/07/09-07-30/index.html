@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wizard-lhx.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="ROS2-教程（二）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS2-包创建">
+<meta property="og:url" content="http://wizard-lhx.github.io/2025/04/07/09-07-30/index.html">
+<meta property="og:site_name" content="WIZARD-LHX-BLOG">
+<meta property="og:description" content="ROS2-教程（二）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-07T01:07:30.000Z">
+<meta property="article:modified_time" content="2025-04-07T01:11:15.471Z">
+<meta property="article:author" content="Wizard LHX">
+<meta property="article:tag" content="ROS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://wizard-lhx.github.io/2025/04/07/09-07-30/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://wizard-lhx.github.io/2025/04/07/09-07-30/","path":"2025/04/07/09-07-30/","title":"ROS2-包创建"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ROS2-包创建 | WIZARD-LHX-BLOG</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">WIZARD-LHX-BLOG</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ros-%E5%8C%85%E5%88%9B%E5%BB%BA"><span class="nav-text"> ROS-包创建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%9B%E5%BB%BA%E5%92%8C%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7"><span class="nav-text"> 1 包结构创建和编译工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E5%9C%A8%E5%B7%A5%E4%BD%9C%E5%8C%BA%E4%B8%8B%E7%9A%84-src-%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%94%9F%E6%88%90-cpppy-%E5%8C%85%E7%BB%93%E6%9E%84"><span class="nav-text"> 1.1 在工作区下的 src 目录下生成 cpp&#x2F;py 包结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E5%9C%A8-packagexml-%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96%E9%A1%B9%E5%92%8C%E4%BD%9C%E8%80%85%E4%BF%A1%E6%81%AF"><span class="nav-text"> 1.2 在 package.xml 添加依赖项和作者信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E5%9C%A8-cmakeliststxt-%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96%E9%A1%B9%E4%BB%A5%E5%8F%8A%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84"><span class="nav-text"> 1.3 在 CMakeLists.txt 添加依赖项以及安装路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-%E5%9C%A8%E5%8C%85%E4%B8%AD%E7%9A%84-src-%E6%B7%BB%E5%8A%A0%E5%86%85%E5%AE%B9"><span class="nav-text"> 1.4 在包中的 src 添加内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-%E5%9B%9E%E5%88%B0%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E7%9B%AE%E5%BD%95-ros2_ws-%E7%BC%96%E8%AF%91"><span class="nav-text"> 1.5 回到工作空间目录 ros2_ws 编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-%E8%8E%B7%E5%8F%96%E8%A6%86%E7%9B%96%E5%B1%82%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%AD%A3%E5%B8%B8%E8%BF%90%E8%A1%8C"><span class="nav-text"> 1.6 获取覆盖层的环境变量正常运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%AF%9D%E9%A2%98%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E9%80%9A%E4%BF%A1%E5%AE%9E%E7%8E%B0"><span class="nav-text"> 2 话题发布订阅通信实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E8%AF%9D%E9%A2%98%E5%8F%91%E5%B8%83%E8%80%85publisher"><span class="nav-text"> 2.1 话题发布者（publisher）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E8%AF%9D%E9%A2%98%E8%AE%A2%E9%98%85%E8%80%85subscriber"><span class="nav-text"> 2.2 话题订阅者（Subscriber）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%9C%8D%E5%8A%A1%E9%80%9A%E4%BF%A1%E5%AE%9E%E7%8E%B0"><span class="nav-text"> 3 服务通信实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-%E6%9C%8D%E5%8A%A1%E7%AB%AFserver"><span class="nav-text"> 3.1 服务端（Server）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E5%AE%A2%E6%88%B7%E7%AB%AFclient"><span class="nav-text"> 3.2 客户端（Client）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0"><span class="nav-text"> 4 接口实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-%E5%9C%A8%E5%8C%85%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9B%B4%E6%8E%A5%E5%88%9B%E5%BB%BA-msgsrv-%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-text"> 4.1 在包目录下直接创建 msg&#x2F;srv 文件夹</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#411-namemsg-%E6%96%87%E4%BB%B6"><span class="nav-text"> 4.1.1 &lt;name&gt;.msg 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#412-namesrv-%E6%96%87%E4%BB%B6"><span class="nav-text"> 4.1.2 &lt;name&gt;.srv 文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-%E4%BF%AE%E6%94%B9-cmakeliststxt"><span class="nav-text"> 4.2 修改 CMakeLists.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-%E4%BF%AE%E6%94%B9-packagexml"><span class="nav-text"> 4.2 修改 package.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-%E5%9C%A8%E5%8C%85%E5%86%85%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3"><span class="nav-text"> 4.3 在包内使用自定义接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%8F%82%E6%95%B0%E5%AE%9A%E4%B9%89%E5%AE%9E%E7%8E%B0"><span class="nav-text"> 5 参数定义实现</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wizard LHX"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Wizard LHX</p>
+  <div class="site-description" itemprop="description">wizard-lhx 的博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wizard-lhx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wizard-lhx" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://wizardhxliang@gmail.com/" title="E-Mail → https:&#x2F;&#x2F;wizardhxliang@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wizard-lhx.github.io/2025/04/07/09-07-30/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Wizard LHX">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WIZARD-LHX-BLOG">
+      <meta itemprop="description" content="wizard-lhx 的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ROS2-包创建 | WIZARD-LHX-BLOG">
+      <meta itemprop="description" content="ROS2-教程（二）">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ROS2-包创建
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-04-07 09:07:30 / 修改时间：09:11:15" itemprop="dateCreated datePublished" datetime="2025-04-07T09:07:30+08:00">2025-04-07</time>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">ROS2-教程（二）</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="ros-包创建"><a class="markdownIt-Anchor" href="#ros-包创建"></a> ROS-包创建</h1>
+<h2 id="1-包结构创建和编译工具"><a class="markdownIt-Anchor" href="#1-包结构创建和编译工具"></a> 1 包结构创建和编译工具</h2>
+<p>在自己开发 ROS 包的时候，需要先构建一个工作空间，然后再在这个空间下面进行开发，这个工作空间相对于安装在系统的 ROS（称为底层）称为覆盖层。<br />
+ROS2 中包结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ros2_ws</span><br><span class="line">├── build</span><br><span class="line">├── install</span><br><span class="line">├── log</span><br><span class="line">└── src</span><br></pre></td></tr></table></figure>
+<p>在开发自己的包时候通过 colcon 构建工具，编译 <code>src</code> 目录下不同的包，并根据每个包下面的编译规则 <code>CMakeLists.txt/setup.py</code> 完成底层的构建并安装到 <code>install</code> 目录下。<br />
+一般步骤包括：</p>
+<h3 id="11-在工作区下的-src-目录下生成-cpppy-包结构"><a class="markdownIt-Anchor" href="#11-在工作区下的-src-目录下生成-cpppy-包结构"></a> 1.1 在工作区下的 src 目录下生成 <code>cpp/py</code> 包结构</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 pkg create --build-type ament_cmake/ament_python --license Apache-2.0</span><br></pre></td></tr></table></figure>
+<p>cpp 包结构：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package_name</span><br><span class="line">├── build</span><br><span class="line">├── CMakeLists.txt</span><br><span class="line">├── include</span><br><span class="line">├── LICENSE</span><br><span class="line">├── package.xml</span><br><span class="line">└── src</span><br></pre></td></tr></table></figure>
+<h3 id="12-在-packagexml-添加依赖项和作者信息"><a class="markdownIt-Anchor" href="#12-在-packagexml-添加依赖项和作者信息"></a> 1.2 在 <code>package.xml</code> 添加依赖项和作者信息</h3>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;depend&gt;rclcpp&lt;/depend&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="13-在-cmakeliststxt-添加依赖项以及安装路径"><a class="markdownIt-Anchor" href="#13-在-cmakeliststxt-添加依赖项以及安装路径"></a> 1.3 在 <code>CMakeLists.txt</code> 添加依赖项以及安装路径</h3>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 添加依赖包</span><br><span class="line">find_package(rclcpp REQUIRED)</span><br><span class="line">find_package(std_msgs REQUIRED)</span><br><span class="line"># 生成可执行文件</span><br><span class="line">add_executable(talker src/publisher_member_function.cpp)</span><br><span class="line">ament_target_dependencies(talker rclcpp std_msgs)</span><br><span class="line"># 安装路径</span><br><span class="line">install(TARGETS</span><br><span class="line">  talker</span><br><span class="line">  DESTINATION lib/$&#123;PROJECT_NAME&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="14-在包中的-src-添加内容"><a class="markdownIt-Anchor" href="#14-在包中的-src-添加内容"></a> 1.4 在包中的 src 添加内容</h3>
+<h3 id="15-回到工作空间目录-ros2_ws-编译"><a class="markdownIt-Anchor" href="#15-回到工作空间目录-ros2_ws-编译"></a> 1.5 回到工作空间目录 <code>ros2_ws</code> 编译</h3>
+<ul>
+<li>编译安装前先检查依赖项</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosdep install -i --from-path src --rosdistro humble -y</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编译</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">colcon build --packages-select &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="16-获取覆盖层的环境变量正常运行"><a class="markdownIt-Anchor" href="#16-获取覆盖层的环境变量正常运行"></a> 1.6 获取覆盖层的环境变量正常运行</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /install/local_setup.bash</span><br></pre></td></tr></table></figure>
+<p>该文件 <code>local_setup.bash</code> 只包括这个工作空间下的环境变量</p>
+<h2 id="2-话题发布订阅通信实现"><a class="markdownIt-Anchor" href="#2-话题发布订阅通信实现"></a> 2 话题发布订阅通信实现</h2>
+<p>创建包的步骤与 1 相同，需要修改的是 1.4 步骤里 <code>ros2_ws/src/&lt;package_name&gt;/src</code> 目录下的文件。</p>
+<h3 id="21-话题发布者publisher"><a class="markdownIt-Anchor" href="#21-话题发布者publisher"></a> 2.1 话题发布者（publisher）</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;chrono&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;rclcpp/rclcpp.hpp&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;std_msgs/msg/string.hpp&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::chrono_literals;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布者类，继承 Node 节点类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MinimalPublisher</span> : <span class="keyword">public</span> rclcpp::Node</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">MinimalPublisher</span>()</span><br><span class="line">  : <span class="built_in">Node</span>(<span class="string">&quot;minimal_publisher&quot;</span>), <span class="built_in">count_</span>(<span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 规定话题缓冲区大小</span></span><br><span class="line">    publisher_ = <span class="keyword">this</span>-&gt;<span class="built_in">create_publisher</span>&lt;std_msgs::msg::String&gt;(<span class="string">&quot;topic&quot;</span>, <span class="number">10</span>);</span><br><span class="line">    <span class="comment">// 创建一个 500 ms，定时调用的定时器，每隔半秒调用一次 timer_callback()</span></span><br><span class="line">    timer_ = <span class="keyword">this</span>-&gt;<span class="built_in">create_wall_timer</span>(</span><br><span class="line">      <span class="number">500</span>ms, std::<span class="built_in">bind</span>(&amp;MinimalPublisher::timer_callback, <span class="keyword">this</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">timer_callback</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> message = std_msgs::msg::<span class="built_in">String</span>();</span><br><span class="line">    message.data = <span class="string">&quot;Hello, world! &quot;</span> + std::<span class="built_in">to_string</span>(count_++);</span><br><span class="line">    <span class="built_in">RCLCPP_INFO</span>(<span class="keyword">this</span>-&gt;<span class="built_in">get_logger</span>(), <span class="string">&quot;Publishing: &#x27;%s&#x27;&quot;</span>, message.data.<span class="built_in">c_str</span>());</span><br><span class="line">    publisher_-&gt;<span class="built_in">publish</span>(message);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 都是智能指针类型</span></span><br><span class="line">  rclcpp::TimerBase::SharedPtr timer_;</span><br><span class="line">  rclcpp::Publisher&lt;std_msgs::msg::String&gt;::SharedPtr publisher_;</span><br><span class="line">  <span class="type">size_t</span> count_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> * argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 创建节点</span></span><br><span class="line">  rclcpp::<span class="built_in">init</span>(argc, argv);</span><br><span class="line">  rclcpp::<span class="built_in">spin</span>(std::<span class="built_in">make_shared</span>&lt;MinimalPublisher&gt;());</span><br><span class="line">  rclcpp::<span class="built_in">shutdown</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="22-话题订阅者subscriber"><a class="markdownIt-Anchor" href="#22-话题订阅者subscriber"></a> 2.2 话题订阅者（Subscriber）</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;rclcpp/rclcpp.hpp&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;std_msgs/msg/string.hpp&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> std::placeholders::_1;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅者类，继承 Node 类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MinimalSubscriber</span> : <span class="keyword">public</span> rclcpp::Node</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">MinimalSubscriber</span>()</span><br><span class="line">  : <span class="built_in">Node</span>(<span class="string">&quot;minimal_subscriber&quot;</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 定义订阅者，消息队列长度为 10，当有消息时自动调用 topic_callback 函数。</span></span><br><span class="line">    <span class="comment">// _1，占位符用于将得到的消息作为第一个参数传递给 topic_callback。</span></span><br><span class="line">    subscription_ = <span class="keyword">this</span>-&gt;<span class="built_in">create_subscription</span>&lt;std_msgs::msg::String&gt;(</span><br><span class="line">      <span class="string">&quot;topic&quot;</span>, <span class="number">10</span>, std::<span class="built_in">bind</span>(&amp;MinimalSubscriber::topic_callback, <span class="keyword">this</span>, _1));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="comment">// 第 2 个 const 表示不会修改类内成员变量</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">topic_callback</span><span class="params">(<span class="type">const</span> std_msgs::msg::String &amp; msg)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="built_in">RCLCPP_INFO</span>(<span class="keyword">this</span>-&gt;<span class="built_in">get_logger</span>(), <span class="string">&quot;I heard: &#x27;%s&#x27;&quot;</span>, msg.data.<span class="built_in">c_str</span>());</span><br><span class="line">  &#125;</span><br><span class="line">  rclcpp::Subscription&lt;std_msgs::msg::String&gt;::SharedPtr subscription_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> * argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 开启节点</span></span><br><span class="line">  rclcpp::<span class="built_in">init</span>(argc, argv);</span><br><span class="line">  rclcpp::<span class="built_in">spin</span>(std::<span class="built_in">make_shared</span>&lt;MinimalSubscriber&gt;());</span><br><span class="line">  rclcpp::<span class="built_in">shutdown</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-服务通信实现"><a class="markdownIt-Anchor" href="#3-服务通信实现"></a> 3 服务通信实现</h2>
+<p>创建包的步骤与 1 相同，需要修改的是 1.4 步骤里 <code>ros2_ws/src/&lt;package_name&gt;/src</code> 目录下的文件。</p>
+<h3 id="31-服务端server"><a class="markdownIt-Anchor" href="#31-服务端server"></a> 3.1 服务端（Server）</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;rclcpp/rclcpp.hpp&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;tutorial_interfaces/srv/add_three_ints.hpp&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 服务函数，将三个书相加</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">const</span> std::shared_ptr&lt;tutorial_interfaces::srv::AddThreeInts::Request&gt; request,</span></span></span><br><span class="line"><span class="params"><span class="function">          std::shared_ptr&lt;tutorial_interfaces::srv::AddThreeInts::Response&gt;      response)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  response-&gt;sum = request-&gt;a + request-&gt;b + request-&gt;c;</span><br><span class="line">  <span class="built_in">RCLCPP_INFO</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>), <span class="string">&quot;Incoming request\na: %ld&quot;</span> <span class="string">&quot; b: %ld&quot;</span> <span class="string">&quot; c: %ld&quot;</span>,</span><br><span class="line">                request-&gt;a, request-&gt;b, request-&gt;c);</span><br><span class="line">  <span class="built_in">RCLCPP_INFO</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>), <span class="string">&quot;sending back response: [%ld]&quot;</span>, (<span class="type">long</span> <span class="type">int</span>)response-&gt;sum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 创建节点</span></span><br><span class="line">  rclcpp::<span class="built_in">init</span>(argc, argv);</span><br><span class="line"></span><br><span class="line">  std::shared_ptr&lt;rclcpp::Node&gt; node = rclcpp::Node::<span class="built_in">make_shared</span>(<span class="string">&quot;add_three_ints_server&quot;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 创建服务，当有 request 时，自动调用 add 函数</span></span><br><span class="line">  rclcpp::Service&lt;tutorial_interfaces::srv::AddThreeInts&gt;::SharedPtr service =</span><br><span class="line">    node-&gt;<span class="built_in">create_service</span>&lt;tutorial_interfaces::srv::AddThreeInts&gt;(<span class="string">&quot;add_three_ints&quot;</span>, &amp;add);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">RCLCPP_INFO</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>), <span class="string">&quot;Ready to add three ints.&quot;</span>);</span><br><span class="line"></span><br><span class="line">  rclcpp::<span class="built_in">spin</span>(node);</span><br><span class="line">  rclcpp::<span class="built_in">shutdown</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="32-客户端client"><a class="markdownIt-Anchor" href="#32-客户端client"></a> 3.2 客户端（Client）</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;rclcpp/rclcpp.hpp&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;tutorial_interfaces/srv/add_three_ints.hpp&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;chrono&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::chrono_literals;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  rclcpp::<span class="built_in">init</span>(argc, argv);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 获取判断命令行参数数量</span></span><br><span class="line">  <span class="keyword">if</span> (argc != <span class="number">4</span>) &#123;</span><br><span class="line">      <span class="built_in">RCLCPP_INFO</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>), <span class="string">&quot;usage: add_three_ints_client X Y Z&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  std::shared_ptr&lt;rclcpp::Node&gt; node = rclcpp::Node::<span class="built_in">make_shared</span>(<span class="string">&quot;add_three_ints_client&quot;</span>);</span><br><span class="line">  rclcpp::Client&lt;tutorial_interfaces::srv::AddThreeInts&gt;::SharedPtr client =</span><br><span class="line">    node-&gt;<span class="built_in">create_client</span>&lt;tutorial_interfaces::srv::AddThreeInts&gt;(<span class="string">&quot;add_three_ints&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">auto</span> request = std::<span class="built_in">make_shared</span>&lt;tutorial_interfaces::srv::AddThreeInts::Request&gt;();</span><br><span class="line">  request-&gt;a = <span class="built_in">atoll</span>(argv[<span class="number">1</span>]);</span><br><span class="line">  request-&gt;b = <span class="built_in">atoll</span>(argv[<span class="number">2</span>]);</span><br><span class="line">  request-&gt;c = <span class="built_in">atoll</span>(argv[<span class="number">3</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 1s 后如果没有创建该服务，则退出</span></span><br><span class="line">  <span class="keyword">while</span> (!client-&gt;<span class="built_in">wait_for_service</span>(<span class="number">1</span>s)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!rclcpp::<span class="built_in">ok</span>()) &#123;</span><br><span class="line">      <span class="built_in">RCLCPP_ERROR</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>), <span class="string">&quot;Interrupted while waiting for the service. Exiting.&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">RCLCPP_INFO</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>), <span class="string">&quot;service not available, waiting again...&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">auto</span> result = client-&gt;<span class="built_in">async_send_request</span>(request);</span><br><span class="line">  <span class="comment">// 等待服务响应</span></span><br><span class="line">  <span class="keyword">if</span> (rclcpp::<span class="built_in">spin_until_future_complete</span>(node, result) ==</span><br><span class="line">    rclcpp::FutureReturnCode::SUCCESS)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">RCLCPP_INFO</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>), <span class="string">&quot;Sum: %ld&quot;</span>, result.<span class="built_in">get</span>()-&gt;sum);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">RCLCPP_ERROR</span>(rclcpp::<span class="built_in">get_logger</span>(<span class="string">&quot;rclcpp&quot;</span>), <span class="string">&quot;Failed to call service add_three_ints&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  rclcpp::<span class="built_in">shutdown</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-接口实现"><a class="markdownIt-Anchor" href="#4-接口实现"></a> 4 接口实现</h2>
+<h3 id="41-在包目录下直接创建-msgsrv-文件夹"><a class="markdownIt-Anchor" href="#41-在包目录下直接创建-msgsrv-文件夹"></a> 4.1 在包目录下直接创建 msg/srv 文件夹</h3>
+<p>在对应文件夹下创建 <code>.msg</code> 或者 <code>.srv</code> 文件</p>
+<h4 id="411-namemsg-文件"><a class="markdownIt-Anchor" href="#411-namemsg-文件"></a> 4.1.1 <code>&lt;name&gt;.msg</code> 文件</h4>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int64 num</span><br></pre></td></tr></table></figure>
+<h4 id="412-namesrv-文件"><a class="markdownIt-Anchor" href="#412-namesrv-文件"></a> 4.1.2 <code>&lt;name&gt;.srv</code> 文件</h4>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int64 a</span><br><span class="line">int64 b</span><br><span class="line">---</span><br><span class="line">int64 sum</span><br></pre></td></tr></table></figure>
+<h3 id="42-修改-cmakeliststxt"><a class="markdownIt-Anchor" href="#42-修改-cmakeliststxt"></a> 4.2 修改 <code>CMakeLists.txt</code></h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># rosidl_default_generators 这个包用来生成实际的接口 cpp/python 代码文件</span><br><span class="line">find_package(rosidl_default_generators REQUIRED)</span><br><span class="line"></span><br><span class="line"># 生成接口</span><br><span class="line">rosidl_generate_interfaces($&#123;PROJECT_NAME&#125;</span><br><span class="line">  &quot;msg/Num.msg&quot;</span><br><span class="line">  &quot;msg/Sphere.msg&quot;</span><br><span class="line">  &quot;srv/AddThreeInts.srv&quot;</span><br><span class="line">  DEPENDENCIES geometry_msgs # Sphere.msg 用到这个依赖项</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="42-修改-packagexml"><a class="markdownIt-Anchor" href="#42-修改-packagexml"></a> 4.2 修改 <code>package.xml</code></h3>
+<p>添加依赖并声明是接口包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;depend&gt;geometry_msgs&lt;/depend&gt;</span><br><span class="line">&lt;buildtool_depend&gt;rosidl_default_generators&lt;/buildtool_depend&gt;</span><br><span class="line">&lt;exec_depend&gt;rosidl_default_runtime&lt;/exec_depend&gt;</span><br><span class="line">&lt;!-- 声明这个包是接口包 --&gt;</span><br><span class="line">&lt;member_of_group&gt;rosidl_interface_packages&lt;/member_of_group&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="43-在包内使用自定义接口"><a class="markdownIt-Anchor" href="#43-在包内使用自定义接口"></a> 4.3 在包内使用自定义接口</h3>
+<p>需要重新修改 <code>CMakeLists.txt</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ament_export_dependencies(rosidl_default_runtime)</span><br><span class="line">set(msg_files</span><br><span class="line">  &quot;msg/AddressBook.msg&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># 在生成其它包后，例如 publish_address_book，将接口链接到该包</span><br><span class="line">rosidl_get_typesupport_target(cpp_typesupport_target</span><br><span class="line">$&#123;PROJECT_NAME&#125; rosidl_typesupport_cpp)</span><br><span class="line"></span><br><span class="line">target_link_libraries(publish_address_book &quot;$&#123;cpp_typesupport_target&#125;&quot;)</span><br></pre></td></tr></table></figure>
+<h2 id="5-参数定义实现"><a class="markdownIt-Anchor" href="#5-参数定义实现"></a> 5 参数定义实现</h2>
+<p>在节点内容创建时定义参数即可。<br />
+例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;chrono&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;rclcpp/rclcpp.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::chrono_literals;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MinimalParam</span> : <span class="keyword">public</span> rclcpp::Node</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">MinimalParam</span>()</span><br><span class="line">  : <span class="built_in">Node</span>(<span class="string">&quot;minimal_param_node&quot;</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 声明参数名</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">declare_parameter</span>(<span class="string">&quot;my_parameter&quot;</span>, <span class="string">&quot;world&quot;</span>);</span><br><span class="line"></span><br><span class="line">    timer_ = <span class="keyword">this</span>-&gt;<span class="built_in">create_wall_timer</span>(</span><br><span class="line">      <span class="number">1000</span>ms, std::<span class="built_in">bind</span>(&amp;MinimalParam::timer_callback, <span class="keyword">this</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">timer_callback</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="comment">// 获取参数</span></span><br><span class="line">    std::string my_param = <span class="keyword">this</span>-&gt;<span class="built_in">get_parameter</span>(<span class="string">&quot;my_parameter&quot;</span>).<span class="built_in">as_string</span>();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">RCLCPP_INFO</span>(<span class="keyword">this</span>-&gt;<span class="built_in">get_logger</span>(), <span class="string">&quot;Hello %s!&quot;</span>, my_param.<span class="built_in">c_str</span>());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置参数</span></span><br><span class="line">    std::vector&lt;rclcpp::Parameter&gt; all_new_parameters&#123;rclcpp::<span class="built_in">Parameter</span>(<span class="string">&quot;my_parameter&quot;</span>, <span class="string">&quot;world&quot;</span>)&#125;;</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">set_parameters</span>(all_new_parameters);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  rclcpp::TimerBase::SharedPtr timer_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> ** argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  rclcpp::<span class="built_in">init</span>(argc, argv);</span><br><span class="line">  rclcpp::<span class="built_in">spin</span>(std::<span class="built_in">make_shared</span>&lt;MinimalParam&gt;());</span><br><span class="line">  rclcpp::<span class="built_in">shutdown</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数设置可以查看 <code>ROS-命令行工具</code> 实现。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ROS/" rel="tag"># ROS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/04/07/09-07-16/" rel="prev" title="ROS2-命令行工具">
+                  <i class="fa fa-angle-left"></i> ROS2-命令行工具
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-pen-nib"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Wizard LHX</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr+QR0SQDNfgglgtcM=" crossorigin="anonymous">
+
+
+
+</body>
+</html>
